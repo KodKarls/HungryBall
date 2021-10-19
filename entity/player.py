@@ -18,12 +18,15 @@ class Player():
 
         # Opcje wskazujące na poruszanie się piłki.
         self.moving_right = False
+        self.moving_left = False
 
     def update(self):
         """Uaktualnienie położenia piłki na podstawie opcji wskazującej
         na jej ruch."""
         if self.moving_right:
             self.rect.x += 1
+        if self.moving_left:
+            self.rect.x -= 1
 
     def blitme(self):
         """Wyświetlenie piłki w jej aktualnym położeniu."""
