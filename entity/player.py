@@ -16,6 +16,15 @@ class Player():
         # Każda nowa piłka pojawia się na środku ekranu.
         self.rect.center = self.screen_rect.center
 
+        # Opcje wskazujące na poruszanie się piłki.
+        self.moving_right = False
+
+    def update(self):
+        """Uaktualnienie położenia piłki na podstawie opcji wskazującej
+        na jej ruch."""
+        if self.moving_right:
+            self.rect.x += 1
+
     def blitme(self):
         """Wyświetlenie piłki w jej aktualnym położeniu."""
         self.screen.blit(self.image, self.rect)
