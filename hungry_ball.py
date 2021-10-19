@@ -3,6 +3,7 @@ import sys
 import pygame
 
 from settings import Settings
+from entity.player import Player
 
 class HungryBall:
     """Ogólna klasa przeznaczona do zarządzania zasobami
@@ -17,6 +18,8 @@ class HungryBall:
             (self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption(self.settings.title)
 
+        self.player = Player(self)
+
     def run_game(self):
         """Rozpoczęcie pętli głównej gry."""
         while True:
@@ -27,6 +30,7 @@ class HungryBall:
 
             # Odświeżenie ekranu w trakcie każdej iteracji pętli.
             self.screen.fill(self.settings.bg_color)
+            self.player.blitme()
 
             # Wyświetlenie ostatnio zmodyfikowanego ekranu.
             pygame.display.flip()
