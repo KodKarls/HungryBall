@@ -8,3 +8,7 @@ class Settings:
         self.screen_height = 600
         self.title = 'Głodna piłka'
         self.bg_color = (230, 230, 230)
+
+        # Ustawienia dotyczące piłki.
+        self.ball_speed_x = 0.2
+        self.ball_speed_y = 0.2
