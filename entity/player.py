@@ -32,13 +32,13 @@ class Player():
         """Uaktualnienie położenia piłki na podstawie opcji wskazującej
         na jej ruch."""
         # Uaktualnienie wartości współrzędnej X piłki, a nie jej prostokąta.
-        if self.moving_right:
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x_pos += self.settings.ball_speed_x
-        if self.moving_left:
+        if self.moving_left and self.rect.left > 0:
             self.x_pos -= self.settings.ball_speed_x
-        if self.moving_up:
+        if self.moving_up and self.rect.top > 0:
             self.y_pos -= self.settings.ball_speed_y
-        if self.moving_down:
+        if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
             self.y_pos += self.settings.ball_speed_y
 
         # Uaktualninie obiektu rect na podstawie wartości self.x_pos i self.y_pos.
