@@ -23,10 +23,11 @@ class HungryBall:
         # Utworzenie gracza.
         self.player = Player(self)
 
-        # Utworzenie kropek.
+        # Utworzenie kropki czarnej i pustej grupy kropek czerwonych.
         self.black_dot = Dot(self, self.player, self.settings.black_dot_color)
         self.red_dots = pygame.sprite.Group()
 
+        # Utworzenie odpowiedniej liczby kropek czerwonych.
         self._create_red_dots()
 
     def run_game(self):
@@ -48,7 +49,7 @@ class HungryBall:
             number -= 1
 
     def _create_red_dot(self):
-        """Utworzenie pojedynczej czerwonej kropki."""
+        """Utworzenie pojedynczej czerwonej kropki i dodanie jej do grupy."""
         red_dot = Dot(self, self.player, self.settings.red_dot_color)
         self.red_dots.add(red_dot)
 
@@ -110,6 +111,7 @@ class HungryBall:
 
     def _update_screen(self):
         """Uaktualnienie obrazów na ekranie i przejście do nowego ekranu."""
+        # Wypełnienie ekranu kolorem tła.
         self.screen.fill(self.settings.bg_color)
 
         # Uaktualnienie obrazów kropek.
@@ -120,10 +122,11 @@ class HungryBall:
         # Uaktualnienie obrazu gracza.
         self.player.blitme()
 
+        # Odświeżenie ekranu pygame.
         pygame.display.flip()
 
     def _reset_game(self):
-        """Zresetowanie gry po zjedzeniu czerwonej kropki."""
+        """Zresetowanie gry po zjedzeniu dowolnej czerwonej kropki."""
         self.player.reset_position()
         self.red_dots.empty()
         self.settings.red_dots_amount = 2

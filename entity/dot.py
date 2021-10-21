@@ -14,17 +14,17 @@ class Dot(Sprite):
         self.settings = hb_game.settings
         self.player = player
 
-        # Przypisanie kropce koloru i powierzchni.
+        # Nadanie kropce koloru i zdefiniowanie powierzchni.
         self.color = color
         self.image = pygame.Surface(
             (self.settings.dot_radius * 2, self.settings.dot_radius * 2))
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
 
-        # Obszar, który wyznacza granicę wokół gracz, w której nie mogą pojawiać się kropki.
+        # Obszar, który wyznacza granicę wokół gracza, w której nie mogą pojawiać się kropki.
         self.player_area_size = 25
 
-        # Losowanie pozycji początkowej kulki.
+        # Losowanie pozycji początkowej kropki.
         self.rand_new_position()
 
     def rand_new_position(self):
