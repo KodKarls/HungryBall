@@ -4,7 +4,6 @@ import pygame
 
 from settings import Settings
 from entity.player import Player
-
 from entity.dot import Dot
 
 class HungryBall:
@@ -21,8 +20,11 @@ class HungryBall:
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption(self.settings.title)
 
+        # Utworzenie gracza.
         self.player = Player(self)
-        self.friend_dot = Dot(self, self.player, self.settings.black_dot_color)
+
+        # Utworzenie kropek.
+        self.black_dot = Dot(self, self.player, self.settings.black_dot_color)
         self.red_dots = pygame.sprite.Group()
 
         self._create_red_dots()
@@ -84,29 +86,33 @@ class HungryBall:
     def _update_dots(self):
         """Uaktualnie pozycji kropek."""
         # Reakcja na kolizję gracza z czarną kropką.
-        if self._check_player_friend_dot_collision():
-            self.friend_dot.rand_new_position()
+        if self._check_player_black_dot_collision():
+            self.black_dot.rand_new_position()
 
         # Reakcja na kolizję gracza z czerwoną kropką.
-        if self._check_player_red_dot_collision():
+        if self._check_player_red_dots_collision():
             # Tutaj będzie zakończenie gry.
             pass
 
-    def _check_player_friend_dot_collision(self):
-        """Sprawdzenie kolizji gracza z czarną (przyjazną) kropką."""
+    def _check_player_black_dot_collision(self):
+        """Sprawdzenie kolizji gracza z czarną kropką."""
         return self.player.rect.collidepoint(
-                self.friend_dot.rect.centerx, self.friend_dot.rect.centery)
+                self.black_dot.rect.centerx, self.black_dot.rect.centery)
 
-    def _check_player_red_dot_collision(self):
+    def _check_player_red_dots_collision(self):
         """Sprawdzenie kolizji gracza z czerwonymi kropkami."""
         return pygame.sprite.spritecollideany(self.player, self.red_dots)
 
     def _update_screen(self):
         """Uaktualnienie obrazów na ekranie i przejście do nowego ekranu."""
         self.screen.fill(self.settings.bg_color)
-        self.friend_dot.draw()
+
+        # Uaktualnienie obrazów kropek.
+        self.black_dot.draw()
         for red_dot in self.red_dots.sprites():
             red_dot.draw()
+
+        # Uaktualnienie obrazu gracza.
         self.player.blitme()
 
         pygame.display.flip()

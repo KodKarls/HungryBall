@@ -10,11 +10,11 @@ class Dot(Sprite):
     def __init__(self, hb_game, player, color):
         """Inicjalizacja składników kropki."""
         super().__init__()
-
         self.screen = hb_game.screen
         self.settings = hb_game.settings
         self.player = player
 
+        # Przypisanie kropce koloru i powierzchni.
         self.color = color
         self.image = pygame.Surface(
             (self.settings.dot_radius * 2, self.settings.dot_radius * 2))
@@ -38,6 +38,7 @@ class Dot(Sprite):
             else:
                 break
 
+        # Ustawienie odpowiedniego środka dla rysowanej kropki.
         self.rect.center = (pos_x, pos_y)
 
     def _check_random_dot_player_position(self, rand_x, rand_y):
