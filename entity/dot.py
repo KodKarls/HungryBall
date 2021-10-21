@@ -21,6 +21,9 @@ class Dot(Sprite):
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
 
+        # Obszar, który wyznacza granicę wokół gracz, w której nie mogą pojawiać się kropki.
+        self.player_area_size = 25
+
         # Losowanie pozycji początkowej kulki.
         self._rand_new_position()
 
@@ -30,13 +33,19 @@ class Dot(Sprite):
             pos_x = random.randint(0, self.settings.screen_width)
             pos_y = random.randint(0, self.settings.screen_height)
 
-            if (pos_x > self.player.rect.left - 25 and pos_x < self.player.rect.right + 10 and
-                pos_y > self.player.rect.top - 10 and pos_y < self.player.rect.bottom + 10):
+            if self._check_random_dot_player_position(pos_x, pos_y):
                 continue
             else:
                 break
 
-        self.rect.center =(pos_x, pos_y)
+        self.rect.center = (pos_x, pos_y)
+
+    def _check_random_dot_player_position(self, rand_x, rand_y):
+        """Sprawdzenie czy losowana pozycja nie jest zbyt blisko gracza."""
+        return (rand_x > self.player.rect.left - self.player_area_size and
+                rand_x < self.player.rect.right + self.player_area_size and
+                rand_y > self.player.rect.top - self.player_area_size and
+                rand_y < self.player.rect.bottom + self.player_area_size)
 
     def draw(self):
         """Wyświetlenie kropki na ekranie."""
