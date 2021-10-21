@@ -87,10 +87,19 @@ class HungryBall:
         if self._check_player_friend_dot_collision():
             self.friend_dot.rand_new_position()
 
+        # Reakcja na kolizję gracza z czerwoną kropką.
+        if self._check_player_red_dot_collision():
+            # Tutaj będzie zakończenie gry.
+            pass
+
     def _check_player_friend_dot_collision(self):
         """Sprawdzenie kolizji gracza z czarną (przyjazną) kropką."""
         return self.player.rect.collidepoint(
                 self.friend_dot.rect.centerx, self.friend_dot.rect.centery)
+
+    def _check_player_red_dot_collision(self):
+        """Sprawdzenie kolizji gracza z czerwonymi kropkami."""
+        return pygame.sprite.spritecollideany(self.player, self.red_dots)
 
     def _update_screen(self):
         """Uaktualnienie obrazów na ekranie i przejście do nowego ekranu."""
