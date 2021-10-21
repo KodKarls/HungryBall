@@ -101,9 +101,13 @@ class HungryBall:
 
     def _check_play_button(self, mouse_pos):
         """Sprawdzenie czy przycisk "Graj" został kliknięty przez użytkownika."""
-        if self.play_button.rect.collidepoint(mouse_pos):
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
             self.stats.game_active = True
             self._reset_game()
+
+            # Ukrycie kursora myszy.
+            pygame.mouse.set_visible(False)
 
     def _update_dots(self):
         """Uaktualnie pozycji kropek."""
@@ -117,6 +121,7 @@ class HungryBall:
         # Reakcja na kolizję gracza z czerwoną kropką.
         if self._check_player_red_dots_collision():
             self.stats.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _check_player_black_dot_collision(self):
         """Sprawdzenie kolizji gracza z czarną kropką."""
