@@ -14,6 +14,6 @@ class Settings:
         self.player_speed_y = 0.2
 
         # Ustawienie dotyczące kropek zjadanych przez gracza.
-        self.dot_radius = 8
+        self.dot_radius = 10
         self.black_dot_color = (0, 0, 0)
         self.red_dot_color = (255, 0, 0)

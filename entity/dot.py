@@ -25,9 +25,9 @@ class Dot(Sprite):
         self.player_area_size = 25
 
         # Losowanie pozycji początkowej kulki.
-        self._rand_new_position()
+        self.rand_new_position()
 
-    def _rand_new_position(self):
+    def rand_new_position(self):
         """Losowanie nowej pozycji dla kropki."""
         while True:
             pos_x = random.randint(0, self.settings.screen_width)

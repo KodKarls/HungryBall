@@ -29,6 +29,7 @@ class HungryBall:
         while True:
             self._check_events()
             self.player.update()
+            self._update_dots()
             self._update_screen()
 
     def _check_events(self):
@@ -64,6 +65,17 @@ class HungryBall:
             self.player.moving_up = False
         elif event.key == pygame.K_DOWN:
             self.player.moving_down = False
+
+    def _update_dots(self):
+        """Uaktualnie pozycji kropek."""
+        # Reakcja na kolizję gracza z czarną kropką.
+        if self._check_player_friend_dot_collision():
+            self.friend_dot.rand_new_position()
+
+    def _check_player_friend_dot_collision(self):
+        """Sprawdzenie kolizji gracza z czarną (przyjazną) kropką."""
+        return self.player.rect.collidepoint(
+                self.friend_dot.rect.centerx, self.friend_dot.rect.centery)
 
     def _update_screen(self):
         """Uaktualnienie obrazów na ekranie i przejście do nowego ekranu."""
