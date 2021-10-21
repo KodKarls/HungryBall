@@ -5,6 +5,8 @@ import pygame
 from settings import Settings
 from entity.player import Player
 
+from entity.dot import Dot
+
 class HungryBall:
     """Ogólna klasa przeznaczona do zarządzania zasobami
     i sposobem działania gry."""
@@ -20,6 +22,7 @@ class HungryBall:
         pygame.display.set_caption(self.settings.title)
 
         self.player = Player(self)
+        self.friend_dot = Dot(self, self.player, self.settings.black_dot_color)
 
     def run_game(self):
         """Rozpoczęcie pętli głównej gry."""
@@ -65,6 +68,7 @@ class HungryBall:
     def _update_screen(self):
         """Uaktualnienie obrazów na ekranie i przejście do nowego ekranu."""
         self.screen.fill(self.settings.bg_color)
+        self.friend_dot.draw()
         self.player.blitme()
 
         pygame.display.flip()
