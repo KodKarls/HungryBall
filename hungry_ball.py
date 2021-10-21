@@ -3,6 +3,7 @@ import sys
 import pygame
 
 from settings import Settings
+from utils.game_stats import GameStats
 from entity.player import Player
 from entity.dot import Dot
 
@@ -20,6 +21,9 @@ class HungryBall:
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption(self.settings.title)
 
+        # Utworzenie obiektu przechowującego dane statystyczne gry.
+        self.stats = GameStats(self)
+
         # Utworzenie gracza.
         self.player = Player(self)
 
@@ -34,7 +38,7 @@ class HungryBall:
         """Rozpoczęcie pętli głównej gry."""
         while True:
             # Sprawdzenie stanu gry.
-            if self.settings.game_active:
+            if self.stats.game_active:
                 self._check_events()
                 self.player.update()
                 self._update_dots()

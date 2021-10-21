@@ -21,9 +21,6 @@ class Settings:
         # Ustawienie dotyczące ilości czerwonych kropek.
         self.red_dots_amount_scale = 2
 
-        # Ustawienie dotyczące aktywności gry.
-        self.game_active = True
-
         self._init_dynamic_settings()
 
     def _init_dynamic_settings(self):
