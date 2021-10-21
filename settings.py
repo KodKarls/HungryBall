@@ -18,3 +18,6 @@ class Settings:
         self.black_dot_color = (0, 0, 0)
         self.red_dot_color = (255, 0, 0)
         self.red_dots_amount = 2
+
+        # Ustawienie dotyczące aktywności gry.
+        self.game_active = True

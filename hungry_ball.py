@@ -32,9 +32,12 @@ class HungryBall:
     def run_game(self):
         """Rozpoczęcie pętli głównej gry."""
         while True:
-            self._check_events()
-            self.player.update()
-            self._update_dots()
+            # Sprawdzenie stanu gry.
+            if self.settings.game_active:
+                self._check_events()
+                self.player.update()
+                self._update_dots()
+
             self._update_screen()
 
     def _create_red_dots(self):
@@ -91,8 +94,7 @@ class HungryBall:
 
         # Reakcja na kolizję gracza z czerwoną kropką.
         if self._check_player_red_dots_collision():
-            # Tutaj będzie zakończenie gry.
-            pass
+            self._reset_game()
 
     def _check_player_black_dot_collision(self):
         """Sprawdzenie kolizji gracza z czarną kropką."""
@@ -116,6 +118,12 @@ class HungryBall:
         self.player.blitme()
 
         pygame.display.flip()
+
+    def _reset_game(self):
+        """Zresetowanie gry po zjedzeniu czerwonej kropki."""
+        self.player.reset_position()
+        self.red_dots.empty()
+        self._create_red_dots()
 
 if __name__ == '__main__':
     # Utworzenie egzemplarza gry i jej uruchomienie.
