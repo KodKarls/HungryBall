@@ -10,8 +10,8 @@ class Settings:
         self.bg_color = (230, 230, 230)
 
         # Ustawienia dotyczące gracza.
-        self.player_speed_x = 0.2
-        self.player_speed_y = 0.2
+        self.player_speed_x = 0.5
+        self.player_speed_y = 0.5
 
         # Ustawienie dotyczące kropek zjadanych przez gracza.
         self.dot_radius = 10
