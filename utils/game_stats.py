@@ -6,4 +6,4 @@ class GameStats():
         self.settings = hb_game.settings
 
         # Uruchomienie gry "Głodna piłka" w stanie aktywnym.
-        self.game_active = True
+        self.game_active = False

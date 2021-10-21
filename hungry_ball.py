@@ -4,6 +4,7 @@ import pygame
 
 from settings import Settings
 from utils.game_stats import GameStats
+from gui.button import Button
 from entity.player import Player
 from entity.dot import Dot
 
@@ -34,12 +35,16 @@ class HungryBall:
         # Utworzenie odpowiedniej liczby kropek czerwonych.
         self._create_red_dots()
 
+        # Utworzenie przycisku "Graj".
+        self.play_button = Button(self, "Graj")
+
     def run_game(self):
         """Rozpoczęcie pętli głównej gry."""
         while True:
+            self._check_events()
+
             # Sprawdzenie stanu gry.
             if self.stats.game_active:
-                self._check_events()
                 self.player.update()
                 self._update_dots()
 
@@ -66,6 +71,9 @@ class HungryBall:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         """Reakcja na naciśnięcie klawisza."""
@@ -91,6 +99,12 @@ class HungryBall:
         elif event.key == pygame.K_DOWN:
             self.player.moving_down = False
 
+    def _check_play_button(self, mouse_pos):
+        """Sprawdzenie czy przycisk "Graj" został kliknięty przez użytkownika."""
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self.stats.game_active = True
+            self._reset_game()
+
     def _update_dots(self):
         """Uaktualnie pozycji kropek."""
         # Reakcja na kolizję gracza z czarną kropką.
@@ -102,7 +116,7 @@ class HungryBall:
 
         # Reakcja na kolizję gracza z czerwoną kropką.
         if self._check_player_red_dots_collision():
-            self._reset_game()
+            self.stats.game_active = False
 
     def _check_player_black_dot_collision(self):
         """Sprawdzenie kolizji gracza z czarną kropką."""
@@ -126,6 +140,10 @@ class HungryBall:
         # Uaktualnienie obrazu gracza.
         self.player.blitme()
 
+        # Wyświetlenie przycisku tylko wtedy, gdy gra jest nieaktywna.
+        if not self.stats.game_active:
+            self.play_button.draw()
+
         # Odświeżenie ekranu pygame.
         pygame.display.flip()
 
@@ -135,6 +153,7 @@ class HungryBall:
         self.red_dots.empty()
         self.settings.red_dots_amount = 2
         self._create_red_dots()
+        self.black_dot.rand_new_position()
 
 if __name__ == '__main__':
     # Utworzenie egzemplarza gry i jej uruchomienie.
