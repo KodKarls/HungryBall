@@ -27,6 +27,12 @@ class Player():
         self.moving_up = False
         self.moving_down = False
 
+    def reset_position(self):
+        """Przywrócenie gracza na środek ekranu."""
+        self.rect.center = self.screen_rect.center
+        self.x_pos = float(self.rect.x)
+        self.y_pos = float(self.rect.y)
+
     def update(self):
         """Uaktualnienie położenia gracza na podstawie opcji wskazującej
         na jego ruch."""

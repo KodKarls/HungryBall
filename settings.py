@@ -17,4 +17,19 @@ class Settings:
         self.dot_radius = 10
         self.black_dot_color = (0, 0, 0)
         self.red_dot_color = (255, 0, 0)
+
+        # Ustawienie dotyczące ilości czerwonych kropek.
+        self.red_dots_amount_scale = 2
+
+        # Ustawienie dotyczące aktywności gry.
+        self.game_active = True
+
+        self._init_dynamic_settings()
+
+    def _init_dynamic_settings(self):
+        """Inicjalizacja ustawień, które ulegają zmianie w trakcie gry."""
         self.red_dots_amount = 2
+
+    def increase_red_dots_amount(self):
+        """Zmiana ustawień dotyczących ilości czerwonych kropek."""
+        self.red_dots_amount += self.red_dots_amount_scale
