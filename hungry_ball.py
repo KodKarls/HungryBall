@@ -23,6 +23,9 @@ class HungryBall:
 
         self.player = Player(self)
         self.friend_dot = Dot(self, self.player, self.settings.black_dot_color)
+        self.red_dots = pygame.sprite.Group()
+
+        self._create_red_dots()
 
     def run_game(self):
         """Rozpoczęcie pętli głównej gry."""
@@ -31,6 +34,18 @@ class HungryBall:
             self.player.update()
             self._update_dots()
             self._update_screen()
+
+    def _create_red_dots(self):
+        """Utworzenie odpowiedniej liczby czerwonych kropek."""
+        number = self.settings.red_dots_amount
+        while number > 0:
+            self._create_red_dot()
+            number -= 1
+
+    def _create_red_dot(self):
+        """Utworzenie pojedynczej czerwonej kropki."""
+        red_dot = Dot(self, self.player, self.settings.red_dot_color)
+        self.red_dots.add(red_dot)
 
     def _check_events(self):
         """Reakcja na zdarzenia generowane przez klawiaturę i mysz."""
@@ -81,6 +96,8 @@ class HungryBall:
         """Uaktualnienie obrazów na ekranie i przejście do nowego ekranu."""
         self.screen.fill(self.settings.bg_color)
         self.friend_dot.draw()
+        for red_dot in self.red_dots.sprites():
+            red_dot.draw()
         self.player.blitme()
 
         pygame.display.flip()
