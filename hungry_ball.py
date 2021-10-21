@@ -91,6 +91,9 @@ class HungryBall:
         # Reakcja na kolizję gracza z czarną kropką.
         if self._check_player_black_dot_collision():
             self.black_dot.rand_new_position()
+            self.red_dots.empty()
+            self.settings.increase_red_dots_amount()
+            self._create_red_dots()
 
         # Reakcja na kolizję gracza z czerwoną kropką.
         if self._check_player_red_dots_collision():
@@ -123,6 +126,7 @@ class HungryBall:
         """Zresetowanie gry po zjedzeniu czerwonej kropki."""
         self.player.reset_position()
         self.red_dots.empty()
+        self.settings.red_dots_amount = 2
         self._create_red_dots()
 
 if __name__ == '__main__':
