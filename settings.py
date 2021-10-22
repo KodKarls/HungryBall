@@ -18,6 +18,9 @@ class Settings:
         self.black_dot_color = (0, 0, 0)
         self.red_dot_color = (255, 0, 0)
 
+        # Punkty przyznawane za zjedzenie czarnej kropki.
+        self.dot_point = 1
+
         # Ustawienie dotyczące ilości czerwonych kropek.
         self.red_dots_amount_scale = 2
 

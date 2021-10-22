@@ -116,6 +116,8 @@ class HungryBall:
         """Uaktualnie pozycji kropek."""
         # Reakcja na kolizję gracza z czarną kropką.
         if self._check_player_black_dot_collision():
+            self.stats.score += self.settings.dot_point
+            self.score_board.prep_score()
             self.black_dot.rand_new_position()
             self.red_dots.empty()
             self.settings.increase_red_dots_amount()
@@ -163,6 +165,8 @@ class HungryBall:
         self.player.reset_position()
         self.red_dots.empty()
         self.settings.red_dots_amount = 2
+        self.stats.score = 0
+        self.score_board.prep_score()
         self._create_red_dots()
         self.black_dot.rand_new_position()
 
