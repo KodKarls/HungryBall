@@ -3,6 +3,9 @@ import sys
 import pygame
 
 from settings import Settings
+from utils.game_stats import GameStats
+from utils.scoreboard import Scoreboard
+from gui.button import Button
 from entity.player import Player
 from entity.dot import Dot
 
@@ -20,6 +23,11 @@ class HungryBall:
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption(self.settings.title)
 
+        # Utworzenie obiektu przeznaczonego do przechowywania danych statystycznych
+        # gry oraz utworzenie obiektu klasy Scoreboard.
+        self.stats = GameStats(self)
+        self.score_board = Scoreboard(self)
+
         # Utworzenie gracza.
         self.player = Player(self)
 
@@ -30,12 +38,16 @@ class HungryBall:
         # Utworzenie odpowiedniej liczby kropek czerwonych.
         self._create_red_dots()
 
+        # Utworzenie przycisku "Graj".
+        self.play_button = Button(self, "Graj")
+
     def run_game(self):
         """Rozpoczęcie pętli głównej gry."""
         while True:
+            self._check_events()
+
             # Sprawdzenie stanu gry.
-            if self.settings.game_active:
-                self._check_events()
+            if self.stats.game_active:
                 self.player.update()
                 self._update_dots()
 
@@ -62,6 +74,9 @@ class HungryBall:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         """Reakcja na naciśnięcie klawisza."""
@@ -87,10 +102,22 @@ class HungryBall:
         elif event.key == pygame.K_DOWN:
             self.player.moving_down = False
 
+    def _check_play_button(self, mouse_pos):
+        """Sprawdzenie czy przycisk "Graj" został kliknięty przez użytkownika."""
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
+            self.stats.game_active = True
+            self._reset_game()
+
+            # Ukrycie kursora myszy.
+            pygame.mouse.set_visible(False)
+
     def _update_dots(self):
         """Uaktualnie pozycji kropek."""
         # Reakcja na kolizję gracza z czarną kropką.
         if self._check_player_black_dot_collision():
+            self.stats.score += self.settings.dot_point
+            self.score_board.prep_score()
             self.black_dot.rand_new_position()
             self.red_dots.empty()
             self.settings.increase_red_dots_amount()
@@ -98,7 +125,8 @@ class HungryBall:
 
         # Reakcja na kolizję gracza z czerwoną kropką.
         if self._check_player_red_dots_collision():
-            self._reset_game()
+            self.stats.game_active = False
+            pygame.mouse.set_visible(True)
 
     def _check_player_black_dot_collision(self):
         """Sprawdzenie kolizji gracza z czarną kropką."""
@@ -122,6 +150,13 @@ class HungryBall:
         # Uaktualnienie obrazu gracza.
         self.player.blitme()
 
+        # Wyświetlenie punktacji.
+        self.score_board.show_score()
+
+        # Wyświetlenie przycisku tylko wtedy, gdy gra jest nieaktywna.
+        if not self.stats.game_active:
+            self.play_button.draw()
+
         # Odświeżenie ekranu pygame.
         pygame.display.flip()
 
@@ -130,7 +165,10 @@ class HungryBall:
         self.player.reset_position()
         self.red_dots.empty()
         self.settings.red_dots_amount = 2
+        self.stats.score = 0
+        self.score_board.prep_score()
         self._create_red_dots()
+        self.black_dot.rand_new_position()
 
 if __name__ == '__main__':
     # Utworzenie egzemplarza gry i jej uruchomienie.
