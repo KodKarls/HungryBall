@@ -7,3 +7,6 @@ class GameStats():
 
         # Uruchomienie gry "Głodna piłka" w stanie aktywnym.
         self.game_active = False
+
+        # Punktacja.
+        self.score = 0

@@ -4,6 +4,7 @@ import pygame
 
 from settings import Settings
 from utils.game_stats import GameStats
+from utils.scoreboard import Scoreboard
 from gui.button import Button
 from entity.player import Player
 from entity.dot import Dot
@@ -22,8 +23,10 @@ class HungryBall:
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption(self.settings.title)
 
-        # Utworzenie obiektu przechowującego dane statystyczne gry.
+        # Utworzenie obiektu przeznaczonego do przechowywania danych statystycznych
+        # gry oraz utworzenie obiektu klasy Scoreboard.
         self.stats = GameStats(self)
+        self.score_board = Scoreboard(self)
 
         # Utworzenie gracza.
         self.player = Player(self)
@@ -144,6 +147,9 @@ class HungryBall:
 
         # Uaktualnienie obrazu gracza.
         self.player.blitme()
+
+        # Wyświetlenie punktacji.
+        self.score_board.show_score()
 
         # Wyświetlenie przycisku tylko wtedy, gdy gra jest nieaktywna.
         if not self.stats.game_active:
