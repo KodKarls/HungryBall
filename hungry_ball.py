@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from settings import Settings
+from utils.settings import Settings
 from utils.game_stats import GameStats
 from utils.scoreboard import Scoreboard
 from gui.button import Button
