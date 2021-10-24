@@ -39,7 +39,7 @@ class HungryBall:
         self._create_red_dots()
 
         # Utworzenie przycisku "Graj".
-        self.play_button = Button(self, 200, 50, "Graj")
+        self.play_button = Button(self, 200, 50, 160, "Graj")
 
     def run_game(self):
         """Rozpoczęcie pętli głównej gry."""
