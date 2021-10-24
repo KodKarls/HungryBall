@@ -38,8 +38,9 @@ class HungryBall:
         # Utworzenie odpowiedniej liczby kropek czerwonych.
         self._create_red_dots()
 
-        # Utworzenie przycisku "Graj".
-        self.play_button = Button(self, "Graj")
+        # Utworzenie przycisków "Graj" i "Wyjście".
+        self.play_button = Button(self, 200, 50, 160, "Graj")
+        self.exit_button = Button(self, 200, 50, 80, "Wyjście")
 
     def run_game(self):
         """Rozpoczęcie pętli głównej gry."""
@@ -68,15 +69,14 @@ class HungryBall:
     def _check_events(self):
         """Reakcja na zdarzenia generowane przez klawiaturę i mysz."""
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 self._check_play_button(mouse_pos)
+                self._check_exit_button(mouse_pos)
 
     def _check_keydown_events(self, event):
         """Reakcja na naciśnięcie klawisza."""
@@ -88,8 +88,6 @@ class HungryBall:
             self.player.moving_up = True
         elif event.key == pygame.K_DOWN:
             self.player.moving_down = True
-        elif event.key == pygame.K_q:
-            sys.exit()
 
     def _check_keyup_events(self, event):
         """Reakcja na zwolnienie klawisza."""
@@ -111,6 +109,13 @@ class HungryBall:
 
             # Ukrycie kursora myszy.
             pygame.mouse.set_visible(False)
+
+    def _check_exit_button(self, mouse_pos):
+        """Sprawdzenie czy przycisk "Wyjście" został kliknięty przez użytkownika."""
+        button_clicked = self.exit_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
+            # Wyjście z gry.
+            sys.exit(0)
 
     def _update_dots(self):
         """Uaktualnie pozycji kropek."""
@@ -156,6 +161,7 @@ class HungryBall:
         # Wyświetlenie przycisku tylko wtedy, gdy gra jest nieaktywna.
         if not self.stats.game_active:
             self.play_button.draw()
+            self.exit_button.draw()
 
         # Odświeżenie ekranu pygame.
         pygame.display.flip()
