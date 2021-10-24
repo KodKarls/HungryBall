@@ -69,9 +69,7 @@ class HungryBall:
     def _check_events(self):
         """Reakcja na zdarzenia generowane przez klawiaturę i mysz."""
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
@@ -90,8 +88,6 @@ class HungryBall:
             self.player.moving_up = True
         elif event.key == pygame.K_DOWN:
             self.player.moving_down = True
-        elif event.key == pygame.K_q:
-            sys.exit()
 
     def _check_keyup_events(self, event):
         """Reakcja na zwolnienie klawisza."""
