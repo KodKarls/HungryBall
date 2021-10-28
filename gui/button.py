@@ -7,13 +7,14 @@ class Button():
         """Inicjalizacja atrybutów przycisku."""
         self.screen = hb_game.screen
         self.screen_rect = self.screen.get_rect()
+        self.settings = hb_game.settings
 
         # Zdefiniowanie wymiarów, pozycji i właściwości przycisku.
         self.width, self.height = width, height
         self.pos_y = pos_y
         self.button_color = (0, 255, 0)
         self.text_color = (255, 255, 255)
-        self.font = pygame.font.SysFont(None, 48)
+        self.font = pygame.font.SysFont(self.settings.font_name, self.settings.font_button_size)
 
         # Utworzenie prostokąta przycisku i ustawienie jego odpowiedniej pozycji.
         self.rect = pygame.Rect(0, 0, self.width, self.height)

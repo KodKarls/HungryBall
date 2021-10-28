@@ -9,6 +9,11 @@ class Settings:
         self.title = 'Głodna piłka'
         self.bg_color = (230, 230, 230)
 
+        # Ustawienia czcionki.
+        self.font_name = 'Courier'
+        self.font_point_size = 48
+        self.font_button_size = 40
+
         # Ustawienia dotyczące gracza.
         self.player_speed_x = 0.5
         self.player_speed_y = 0.5

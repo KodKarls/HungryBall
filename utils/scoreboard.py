@@ -13,7 +13,7 @@ class Scoreboard():
 
         # Ustawienia czcionki dla informacji dotyczących punktacji.
         self.text_color = (30, 30, 30)
-        self.font = pygame.font.SysFont(None, 48)
+        self.font = pygame.font.SysFont(self.settings.font_name, self.settings.font_point_size)
 
         # Przygotowanie początkowych obrazów z punktacją.
         self.prep_score()
