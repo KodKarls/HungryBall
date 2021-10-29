@@ -21,14 +21,27 @@ class Dot(Sprite):
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
 
-        # Obszar, który wyznacza granicę wokół gracza, w której nie mogą pojawiać się kropki.
-        self.player_area_size = 25
+        # Obszar, który wyznacza granicę wokół obiektu, w której nie mogą pojawiać się kropki.
+        self.safe_area_size = 25
 
-        # Losowanie pozycji początkowej kropki.
-        self.rand_new_position()
+    def rand_black_dot_position(self, red_dots):
+        """Losowanie nowej pozycji dla czarnej kropki."""
+        while True:
+            pos_x = random.randint(0, self.settings.screen_width)
+            pos_y = random.randint(0, self.settings.screen_height)
 
-    def rand_new_position(self):
-        """Losowanie nowej pozycji dla kropki."""
+            if self._check_random_dot_player_position(pos_x, pos_y):
+                continue
+            elif self._check_random_red_dots_positon(pos_x, pos_y, red_dots):
+                continue
+            else:
+                break
+
+        # Ustawienie odpowiedniego środka dla rysowanej kropki.
+        self.rect.center = (pos_x, pos_y)
+
+    def rand_red_dot_position(self):
+        """Losowanie nowej pozycji dla czerwonej kropki."""
         while True:
             pos_x = random.randint(0, self.settings.screen_width)
             pos_y = random.randint(0, self.settings.screen_height)
@@ -43,10 +56,21 @@ class Dot(Sprite):
 
     def _check_random_dot_player_position(self, rand_x, rand_y):
         """Sprawdzenie czy losowana pozycja nie jest zbyt blisko gracza."""
-        return (rand_x > self.player.rect.left - self.player_area_size and
-                rand_x < self.player.rect.right + self.player_area_size and
-                rand_y > self.player.rect.top - self.player_area_size and
-                rand_y < self.player.rect.bottom + self.player_area_size)
+        return (rand_x > self.player.rect.left - self.safe_area_size and
+                rand_x < self.player.rect.right + self.safe_area_size and
+                rand_y > self.player.rect.top - self.safe_area_size and
+                rand_y < self.player.rect.bottom + self.safe_area_size)
+
+    def _check_random_red_dots_positon(self, rand_x, rand_y, red_dots):
+        """Sprawdzenie czy losowana pozycja nie jest zbyt blisko czerwonych kropek."""
+        for red_dot in red_dots.sprites():
+            if (rand_x > red_dot.rect.left - self.safe_area_size and
+                rand_x < red_dot.rect.right + self.safe_area_size and
+                rand_y > red_dot.rect.top - self.safe_area_size and
+                rand_y < red_dot.rect.bottom + self.safe_area_size):
+                return True
+
+        return False
 
     def draw(self):
         """Wyświetlenie kropki na ekranie."""

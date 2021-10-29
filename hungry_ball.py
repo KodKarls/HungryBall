@@ -38,6 +38,9 @@ class HungryBall:
         # Utworzenie odpowiedniej liczby kropek czerwonych.
         self._create_red_dots()
 
+        # Wylosowanie początkowej pozycji kropki czarnej.
+        self.black_dot.rand_black_dot_position(self.red_dots)
+
         # Utworzenie przycisków "Graj" i "Wyjście".
         self.play_button = Button(self, 200, 50, 160, "Graj")
         self.exit_button = Button(self, 200, 50, 80, "Wyjście")
@@ -64,6 +67,7 @@ class HungryBall:
     def _create_red_dot(self):
         """Utworzenie pojedynczej czerwonej kropki i dodanie jej do grupy."""
         red_dot = Dot(self, self.player, self.settings.red_dot_color)
+        red_dot.rand_red_dot_position()
         self.red_dots.add(red_dot)
 
     def _check_events(self):
@@ -123,10 +127,10 @@ class HungryBall:
         if self._check_player_black_dot_collision():
             self.stats.score += self.settings.dot_point
             self.score_board.prep_score()
-            self.black_dot.rand_new_position()
             self.red_dots.empty()
             self.settings.increase_red_dots_amount()
             self._create_red_dots()
+            self.black_dot.rand_black_dot_position(self.red_dots)
 
         # Reakcja na kolizję gracza z czerwoną kropką.
         if self._check_player_red_dots_collision():
@@ -174,7 +178,7 @@ class HungryBall:
         self.stats.score = 0
         self.score_board.prep_score()
         self._create_red_dots()
-        self.black_dot.rand_new_position()
+        self.black_dot.rand_black_dot_position(self.red_dots)
 
 if __name__ == '__main__':
     # Utworzenie egzemplarza gry i jej uruchomienie.
