@@ -151,6 +151,9 @@ class HungryBall:
         # Wypełnienie ekranu kolorem tła.
         self.screen.fill(self.settings.bg_color)
 
+        # Wyświetlenie punktacji.
+        self.score_board.show_score()
+
         # Uaktualnienie obrazów kropek.
         self.black_dot.draw()
         for red_dot in self.red_dots.sprites():
@@ -158,9 +161,6 @@ class HungryBall:
 
         # Uaktualnienie obrazu gracza.
         self.player.blitme()
-
-        # Wyświetlenie punktacji.
-        self.score_board.show_score()
 
         # Wyświetlenie przycisku tylko wtedy, gdy gra jest nieaktywna.
         if not self.stats.game_active:
