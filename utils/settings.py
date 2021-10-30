@@ -9,14 +9,17 @@ class Settings:
         self.title = 'Głodna piłka'
         self.bg_color = (230, 230, 230)
 
+        # Ustawienia gry.
+        self.target_fps = 60
+
         # Ustawienia czcionki.
         self.font_name = 'Courier'
         self.font_point_size = 48
         self.font_button_size = 40
 
         # Ustawienia dotyczące gracza.
-        self.player_speed_x = 0.5
-        self.player_speed_y = 0.5
+        self.player_speed_x = 3.0
+        self.player_speed_y = 3.0
 
         # Ustawienia dotyczące kropek zjadanych przez gracza.
         self.dot_radius = 10

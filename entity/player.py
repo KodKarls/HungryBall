@@ -33,18 +33,18 @@ class Player():
         self.x_pos = float(self.rect.x)
         self.y_pos = float(self.rect.y)
 
-    def update(self):
+    def update(self, delta_time):
         """Uaktualnienie położenia gracza na podstawie opcji wskazującej
         na jego ruch."""
         # Uaktualnienie wartości współrzędnej X i Y gracza.
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.x_pos += self.settings.player_speed_x
+            self.x_pos += self.settings.player_speed_x * delta_time
         if self.moving_left and self.rect.left > 0:
-            self.x_pos -= self.settings.player_speed_x
+            self.x_pos -= self.settings.player_speed_x * delta_time
         if self.moving_up and self.rect.top > 0:
-            self.y_pos -= self.settings.player_speed_y
+            self.y_pos -= self.settings.player_speed_y * delta_time
         if self.moving_down and self.rect.bottom < self.screen_rect.bottom:
-            self.y_pos += self.settings.player_speed_y
+            self.y_pos += self.settings.player_speed_y * delta_time
 
         # Uaktualninie obiektu rect na podstawie wartości self.x_pos i self.y_pos.
         self.rect.x = self.x_pos

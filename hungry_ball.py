@@ -23,6 +23,12 @@ class HungryBall:
         self.settings.screen_height = self.screen.get_rect().height
         pygame.display.set_caption(self.settings.title)
 
+        # Utworzenie obiektu clock, który zapewnia niezależność działania gry
+        # od wydajności sprzętu na którym jest ona uruchamiana oraz obiektu
+        # do przechowywania obecnej ilości czasu, który upłynął.
+        self.clock = pygame.time.Clock()
+        self.delta_time = 0.0
+
         # Utworzenie obiektu przeznaczonego do przechowywania danych statystycznych
         # gry oraz utworzenie obiektu klasy Scoreboard.
         self.stats = GameStats(self)
@@ -48,11 +54,14 @@ class HungryBall:
     def run_game(self):
         """Rozpoczęcie pętli głównej gry."""
         while True:
+            # Liczenie delta time.
+            self.delta_time = self.clock.tick(60) * .001 * self.settings.target_fps
+
             self._check_events()
 
             # Sprawdzenie stanu gry.
             if self.stats.game_active:
-                self.player.update()
+                self.player.update(self.delta_time)
                 self._update_dots()
 
             self._update_screen()
