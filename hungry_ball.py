@@ -5,6 +5,7 @@ import pygame
 from utils.settings import Settings
 from utils.game_stats import GameStats
 from utils.scoreboard import Scoreboard
+from utils.collision_system import CollisionSystem
 from gui.button import Button
 from entity.player import Player
 from entity.dot import Dot
@@ -36,6 +37,9 @@ class HungryBall:
 
         # Utworzenie gracza.
         self.player = Player(self)
+
+        # Utworzenie obiektu systemu kolizji.
+        self.collision_system = CollisionSystem(self)
 
         # Utworzenie kropki czarnej i pustej grupy kropek czerwonych.
         self.black_dot = Dot(self, self.player, self.settings.black_dot_color)
@@ -133,7 +137,7 @@ class HungryBall:
     def _update_dots(self):
         """Uaktualnie pozycji kropek."""
         # Reakcja na kolizję gracza z czarną kropką.
-        if self._check_player_black_dot_collision():
+        if self.collision_system.check_player_black_dot_collision(self.black_dot):
             self.stats.score += self.settings.dot_point
             self.score_board.prep_score()
             self.red_dots.empty()
@@ -142,18 +146,9 @@ class HungryBall:
             self.black_dot.rand_black_dot_position(self.red_dots)
 
         # Reakcja na kolizję gracza z czerwoną kropką.
-        if self._check_player_red_dots_collision():
+        if self.collision_system.check_player_red_dots_collision(self.red_dots):
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
-
-    def _check_player_black_dot_collision(self):
-        """Sprawdzenie kolizji gracza z czarną kropką."""
-        return self.player.rect.collidepoint(
-                self.black_dot.rect.centerx, self.black_dot.rect.centery)
-
-    def _check_player_red_dots_collision(self):
-        """Sprawdzenie kolizji gracza z czerwonymi kropkami."""
-        return pygame.sprite.spritecollideany(self.player, self.red_dots)
 
     def _update_screen(self):
         """Uaktualnienie obrazów na ekranie i przejście do nowego ekranu."""
