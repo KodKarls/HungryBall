@@ -6,6 +6,7 @@ from utils.settings import Settings
 from utils.game_stats import GameStats
 from utils.scoreboard import Scoreboard
 from utils.collision_system import CollisionSystem
+from utils.file_manager import FileManager
 from gui.button import Button
 from entity.player import Player
 from entity.dot import Dot
@@ -54,6 +55,9 @@ class HungryBall:
         # Utworzenie przycisków "Graj" i "Wyjście".
         self.play_button = Button(self, 200, 50, 160, "Graj")
         self.exit_button = Button(self, 200, 50, 80, "Wyjście")
+
+        # Utworzenie obiketu do zapisu danych w pliku.
+        self.file_manager = FileManager()
 
     def run_game(self):
         """Rozpoczęcie pętli głównej gry."""
@@ -147,6 +151,7 @@ class HungryBall:
 
         # Reakcja na kolizję gracza z czerwoną kropką.
         if self.collision_system.check_player_red_dots_collision(self.red_dots):
+            self.file_manager.save_data(self.stats.score)
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
 
