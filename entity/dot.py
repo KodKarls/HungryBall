@@ -13,6 +13,7 @@ class Dot(Sprite):
         self.screen = hb_game.screen
         self.settings = hb_game.settings
         self.player = player
+        self.scoreboard = hb_game.score_board
 
         # Nadanie kropce koloru i zdefiniowanie powierzchni.
         self.color = color
@@ -34,6 +35,8 @@ class Dot(Sprite):
                 continue
             elif self._check_random_red_dots_positon(pos_x, pos_y, red_dots):
                 continue
+            elif self._check_random_scoreboard_position(pos_x, pos_y):
+                continue
             else:
                 break
 
@@ -47,6 +50,8 @@ class Dot(Sprite):
             pos_y = random.randint(0, self.settings.screen_height)
 
             if self._check_random_dot_player_position(pos_x, pos_y):
+                continue
+            elif self._check_random_scoreboard_position(pos_x, pos_y):
                 continue
             else:
                 break
@@ -71,6 +76,13 @@ class Dot(Sprite):
                 return True
 
         return False
+
+    def _check_random_scoreboard_position(self, rand_x, rand_y):
+        """Sprawdzenie czy losowana pozycja nie jest zbyt blisko tablicy z wyświetlanym wynikiem."""
+        return (rand_x > self.scoreboard.score_rect.left - self.safe_area_size and
+                rand_x < self.scoreboard.score_rect.right + self.safe_area_size and
+                rand_y > self.scoreboard.score_rect.top - self.safe_area_size and
+                rand_y < self.scoreboard.score_rect.bottom + self.safe_area_size)
 
     def draw(self):
         """Wyświetlenie kropki na ekranie."""
