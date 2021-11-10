@@ -9,7 +9,7 @@ class Dot(Sprite):
 
     def __init__(self, hb_game, player, color):
         """Inicjalizacja składników kropki."""
-        super().__init__()
+        Sprite.__init__(self)
         self.screen = hb_game.screen
         self.settings = hb_game.settings
         self.player = player
