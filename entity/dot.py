@@ -13,7 +13,7 @@ class Dot(Sprite):
         self.screen = hb_game.screen
         self.settings = hb_game.settings
         self.player = player
-        self.scoreboard = hb_game.score_board
+        self.scoreboard = hb_game.scoreboard
 
         # Nadanie kropce koloru i zdefiniowanie powierzchni.
         self.color = color
