@@ -29,17 +29,14 @@ class Settings:
         self.red_dots_amount_scale = 2
 
         # Ustawienia dotyczące szybkości gracza.
-        self.player_speed_scale_x = 1.05
-        self.player_speed_scale_y = 1.05
+        self.player_speed_scale = 1.05
 
         self._init_dynamic_settings()
 
     def _init_dynamic_settings(self):
         """Inicjalizacja ustawień, które ulegają zmianie w trakcie gry."""
         self.red_dots_amount = 2
-
-        self.player_speed_x = 3.0
-        self.player_speed_y = 3.0
+        self.player_speed = 3.0
 
     def increase_red_dots_amount(self):
         """Zmiana ustawień dotyczących ilości czerwonych kropek."""
@@ -48,5 +45,4 @@ class Settings:
     def increase_player_speed(self):
         """Zmiana ustawień dotyczących szybkości gracza."""
         if self.red_dots_amount % 12 == 0:
-            self.player_speed_x *= self.player_speed_scale_x
-            self.player_speed_y *= self.player_speed_scale_y
+            self.player_speed *= self.player_speed_scale
