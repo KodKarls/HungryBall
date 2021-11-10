@@ -5,7 +5,7 @@ class FileManager:
 
     def __init__(self):
         """Inicjalizacja danych."""
-        self.filename = 'best_score.json'
+        self.filename = 'best_score.txt'
         self.filename_path = 'data/' + self.filename
 
         self.data = {}

@@ -34,7 +34,7 @@ class HungryBall:
         # Utworzenie obiektu przeznaczonego do przechowywania danych statystycznych
         # gry oraz utworzenie obiektu klasy Scoreboard.
         self.stats = GameStats(self)
-        self.score_board = Scoreboard(self)
+        self.scoreboard = Scoreboard(self)
 
         # Utworzenie gracza.
         self.player = Player(self)
@@ -143,7 +143,7 @@ class HungryBall:
         # Reakcja na kolizję gracza z czarną kropką.
         if self.collision_system.check_player_black_dot_collision(self.black_dot):
             self.stats.score += self.settings.dot_point
-            self.score_board.prep_score()
+            self.scoreboard.prep_score()
             self.red_dots.empty()
             self.settings.increase_red_dots_amount()
             self._create_red_dots()
@@ -161,7 +161,7 @@ class HungryBall:
         self.screen.fill(self.settings.bg_color)
 
         # Wyświetlenie punktacji.
-        self.score_board.show_score()
+        self.scoreboard.show_score()
 
         # Uaktualnienie obrazów kropek.
         self.black_dot.draw()
@@ -185,7 +185,7 @@ class HungryBall:
         self.red_dots.empty()
         self.settings.red_dots_amount = 2
         self.stats.score = 0
-        self.score_board.prep_score()
+        self.scoreboard.prep_score()
         self._create_red_dots()
         self.black_dot.rand_black_dot_position(self.red_dots)
 
