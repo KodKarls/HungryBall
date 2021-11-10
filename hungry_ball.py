@@ -146,6 +146,7 @@ class HungryBall:
             self.scoreboard.prep_score()
             self.red_dots.empty()
             self.settings.increase_red_dots_amount()
+            self.settings.increase_player_speed()
             self._create_red_dots()
             self.black_dot.rand_black_dot_position(self.red_dots)
 
