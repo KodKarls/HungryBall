@@ -25,6 +25,12 @@ class Settings:
         # Punkty przyznawane za zjedzenie czarnej kropki.
         self.dot_point = 1
 
+        # Ustawienie dotyczące wzrostu poziomu trudności gry.
+        self.level_increase = 1
+
+        # Ustawienie dotyczące zmiany ilości zjadanych czarnych kropek.
+        self.black_dots_eaten_increase = 1
+
         # Ustawienie dotyczące ilości czerwonych kropek.
         self.red_dots_amount_scale = 2
 
