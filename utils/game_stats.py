@@ -10,3 +10,9 @@ class GameStats():
 
         # Punktacja.
         self.score = 0
+
+        # Liczba aktualnie zjedzonych czarnych kropek.
+        self.number_black_dots_eaten = 0
+
+        # Aktualny poziom gry.
+        self.level = 1
