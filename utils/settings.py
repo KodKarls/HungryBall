@@ -44,11 +44,15 @@ class Settings:
         self.red_dots_amount = 2
         self.player_speed = 3.0
 
-    def increase_red_dots_amount(self):
+    def increase_red_dots_amount(self, level):
         """Zmiana ustawień dotyczących ilości czerwonych kropek."""
+        if level % 10 == 0:
+            self.red_dots_amount_scale += 2
+            self.red_dots_amount += level * 0.5
+            return
         self.red_dots_amount += self.red_dots_amount_scale
 
-    def increase_player_speed(self):
+    def increase_player_speed(self, level):
         """Zmiana ustawień dotyczących szybkości gracza."""
-        if self.red_dots_amount % 12 == 0:
+        if level % 10 == 0:
             self.player_speed *= self.player_speed_scale
