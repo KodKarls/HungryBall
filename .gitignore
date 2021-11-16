@@ -1,5 +1,5 @@
-# Visual Studio Code settings files.
-.vscode/
+# PyCharm settings files.
+.idea/
 
 # Python consolidation files.
 __pycache__
