@@ -2,7 +2,8 @@ import math
 
 import pygame
 
-class CollisionSystem():
+
+class CollisionSystem:
     """Klasa przeznaczona do obsługi systemu kolizji."""
 
     def __init__(self, hb_game):

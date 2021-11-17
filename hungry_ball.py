@@ -11,6 +11,7 @@ from gui.button import Button
 from entity.player import Player
 from entity.dot import Dot
 
+
 class HungryBall:
     """Ogólna klasa przeznaczona do zarządzania zasobami
     i sposobem działania gry."""
@@ -191,6 +192,7 @@ class HungryBall:
         self.scoreboard.prep_score()
         self._create_red_dots()
         self.black_dot.rand_black_dot_position(self.red_dots)
+
 
 if __name__ == '__main__':
     # Utworzenie egzemplarza gry i jej uruchomienie.

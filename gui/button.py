@@ -1,6 +1,7 @@
 import pygame.font
 
-class Button():
+
+class Button:
     """Klasa reprezentująca pojedynczy przycisk w grze."""
 
     def __init__(self, hb_game, width, height, pos_y, msg):

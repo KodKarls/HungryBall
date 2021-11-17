@@ -3,6 +3,7 @@ import random
 import pygame
 from pygame.sprite import Sprite
 
+
 class Dot(Sprite):
     """Klasa przeznaczona do zarządzania kropkami pojawiającymi
     się w grze."""
@@ -61,30 +62,24 @@ class Dot(Sprite):
 
     def _check_random_dot_player_position(self, rand_x, rand_y):
         """Sprawdzenie czy losowana pozycja nie jest zbyt blisko gracza."""
-        return (rand_x > self.player.rect.left - self.safe_area_size and
-                rand_x < self.player.rect.right + self.safe_area_size and
-                rand_y > self.player.rect.top - self.safe_area_size and
-                rand_y < self.player.rect.bottom + self.safe_area_size)
+        return (self.player.rect.left - self.safe_area_size < rand_x < self.player.rect.right + self.safe_area_size and
+                self.player.rect.top - self.safe_area_size < rand_y < self.player.rect.bottom + self.safe_area_size)
 
     def _check_random_red_dots_positon(self, rand_x, rand_y, red_dots):
         """Sprawdzenie czy losowana pozycja nie jest zbyt blisko czerwonych kropek."""
         for red_dot in red_dots.sprites():
-            if (rand_x > red_dot.rect.left - self.safe_area_size and
-                rand_x < red_dot.rect.right + self.safe_area_size and
-                rand_y > red_dot.rect.top - self.safe_area_size and
-                rand_y < red_dot.rect.bottom + self.safe_area_size):
+            if (red_dot.rect.left - self.safe_area_size < rand_x < red_dot.rect.right + self.safe_area_size and
+                    red_dot.rect.top - self.safe_area_size < rand_y < red_dot.rect.bottom + self.safe_area_size):
                 return True
 
         return False
 
     def _check_random_scoreboard_position(self, rand_x, rand_y):
         """Sprawdzenie czy losowana pozycja nie jest zbyt blisko tablicy z wyświetlanym wynikiem."""
-        return (rand_x > self.scoreboard.score_rect.left - self.safe_area_size and
-                rand_x < self.scoreboard.score_rect.right + self.safe_area_size and
-                rand_y > self.scoreboard.score_rect.top - self.safe_area_size and
-                rand_y < self.scoreboard.score_rect.bottom + self.safe_area_size)
+        return (self.scoreboard.score_rect.left - self.safe_area_size < rand_x < self.scoreboard.score_rect.right +
+                self.safe_area_size and self.scoreboard.score_rect.top - self.safe_area_size < rand_y <
+                self.scoreboard.score_rect.bottom + self.safe_area_size)
 
     def draw(self):
         """Wyświetlenie kropki na ekranie."""
         pygame.draw.circle(self.screen, self.color, self.rect.center, self.settings.dot_radius)
-        

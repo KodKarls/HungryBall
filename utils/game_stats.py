@@ -1,4 +1,4 @@
-class GameStats():
+class GameStats:
     """Monitorowanie danych statystycznych w grze "Głodna piłka"."""
 
     def __init__(self, hb_game):

@@ -1,5 +1,6 @@
 from datetime import date
 
+
 class FileManager:
     """Klasa przeznaczona do zapisywania danych w pliku."""
 
@@ -26,7 +27,6 @@ class FileManager:
 
     def _check_data(self, score):
         """Sprawdzenie aktualnych danych w pliku."""
-        contents = ''
         try:
             with open(self.filename_path, 'r') as file_object:
                 contents = file_object.read()

@@ -1,6 +1,7 @@
 import pygame
 
-class Player():
+
+class Player:
     """Klasa przeznaczona do zarządzania graczem."""
 
     def __init__(self, hb_game):

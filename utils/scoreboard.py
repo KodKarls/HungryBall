@@ -1,6 +1,7 @@
 import pygame.font
 
-class Scoreboard():
+
+class Scoreboard:
     """Klasa przeznaczona do przedstawiania informacji o punktacji."""
 
     def __init__(self, hb_game):
@@ -16,13 +17,14 @@ class Scoreboard():
         self.font = pygame.font.SysFont(self.settings.font_name, self.settings.font_point_size)
 
         # Przygotowanie początkowych obrazów z punktacją.
+        self.score_image = ''
+        self.score_rect = 0
         self.prep_score()
 
     def prep_score(self):
         """Przekształcenie punktacji na wygenerowany obraz."""
         score_str = str(self.stats.score)
-        self.score_image = self.font.render(score_str, True,
-            self.text_color, self.settings.bg_color)
+        self.score_image = self.font.render(score_str, True, self.text_color, self.settings.bg_color)
 
         # Wyświetlenie punktacji w środkowej-górnej części ekranu.
         self.score_rect = self.score_image.get_rect()
