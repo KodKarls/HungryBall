@@ -188,6 +188,7 @@ class HungryBall:
         self.player.reset_position()
         self.red_dots.empty()
         self.settings.red_dots_amount = 2
+        self.settings.red_dots_amount_scale = 2
         self.stats.score = 0
         self.scoreboard.prep_score()
         self._create_red_dots()
