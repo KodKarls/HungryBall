@@ -4,28 +4,28 @@ import pygame
 
 
 class CollisionSystem:
-    """Klasa przeznaczona do obsługi systemu kolizji."""
+    """A class designed to manage the collision system."""
 
     def __init__(self, hb_game):
-        """Inicjalizacja atrybutów dotyczących systemu kolizji."""
+        """Necessary attributes initialization."""
         self.player = hb_game.player
         self.settings = hb_game.settings
 
-        # Obliczenie długości boku kwadratu znajdującego się w ćwiartce koła.
+        # Calculation of the diagonal of a square in a quarter of a circle.
         self.diagonal_square = round(self.settings.dot_radius / math.sqrt(2), 0)
 
-        # Słownik przechowujący wszystkie punkty koła, które są wymagane do sprawdzenia kolizji.
+        # A dictionary that stores all circle collision points.
         self.player_collide_points = {}
 
     def check_player_black_dot_collision(self, black_dot):
-        """Sprawdzenie kolizji gracza z czarną kropką."""
-        # Sprawdzamy dotknięcie gracza i dowolnej czarnej kropki.
+        """A player collision check with a black dot."""
+        # Checking if the player touches the black dot.
         if self._check_player_black_dot_touch(black_dot):
-            # Dodajemy wszystkie aktualne punkty kolizji gracza do słownika.
+            # Adding all the player's current collision points to the dictionary.
             self._update_player_collide_points()
 
             for _, values in self.player_collide_points.items():
-                # Sprawdzamy odległość między punktami kolizji, a środkiem czarnej kropki.
+                # Check the distance between the collision points and the center of the black dot.
                 distance = math.sqrt(
                     (values[0] - black_dot.rect.centerx)**2 +
                     (values[1] - black_dot.rect.centery)**2)
@@ -35,28 +35,27 @@ class CollisionSystem:
         return False
 
     def check_player_red_dots_collision(self, red_dots):
-        """Sprawdzenie kolizji gracza z czerwoną kropką."""
-        # Sprawdzamy dotknięcie gracza i dowolnej czerwonej kropki.
+        """A player collision check with a red dot."""
+        # Checking if the player touches any red dot.
         red_dot = pygame.sprite.spritecollideany(self.player, red_dots)
 
         if red_dot is None:
             return False
 
-        # Dodajemy wszystkie aktualne punkty kolizji gracza do słownika.
+        # Adding all the player's current collision points to the dictionary.
         self._update_player_collide_points()
 
         for _, values in self.player_collide_points.items():
-            points = list(values)
-            # Sprawdzamy odległość między punktami kolizji, a środkiem czerwonej kropki.
+            # Check the distance between the collision points and the center of the red dot.
             distance = math.sqrt(
-                (points[0] - red_dot.rect.centerx)**2 + (points[1] - red_dot.rect.centery)**2)
+                (values[0] - red_dot.rect.centerx)**2 + (values[1] - red_dot.rect.centery)**2)
             if distance <= self.settings.dot_radius:
                 return True
 
         return False
 
     def _update_player_collide_points(self):
-        """Aktualizacja punktów kolizji gracza."""
+        """Updating player's collision points."""
         self.player_collide_points[0] = [
             self.player.rect.centerx + self.settings.dot_radius, self.player.rect.centery]
         self.player_collide_points[1] = [
@@ -80,5 +79,5 @@ class CollisionSystem:
             self.player.rect.centery - self.diagonal_square]
 
     def _check_player_black_dot_touch(self, black_dot):
-        """Sprawdzenie czy gracz dotknął czarną kropką."""
+        """Checking if the player has touched the black dot (use default pygame collision system)."""
         return self.player.rect.collidepoint(black_dot.rect.centerx, black_dot.rect.centery)

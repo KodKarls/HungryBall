@@ -2,49 +2,49 @@ from datetime import date
 
 
 class FileManager:
-    """Klasa przeznaczona do zapisywania danych w pliku."""
+    """A class designed to save data into the file."""
 
     def __init__(self):
-        """Inicjalizacja danych."""
+        """Necessary attributes initialization."""
         self.filename = 'best_score.txt'
         self.filename_path = 'data/' + self.filename
 
         self.data = {}
 
     def save_data(self, score):
-        """Zapisanie danych o największym wyniku w pliku."""
+        """Saving the data with the highest score into the file."""
         if self._check_data(score):
-            # Pobranie aktualnej daty i czasu.
+            # Get the current date and time.
             date_now = date.today().strftime("%d-%m-%Y")
 
-            # Przygotowanie danych do zapisu.
-            self.data['Najlepszy wynik'] = str(score)
-            self.data['Data'] = date_now
+            # Preparation of data for saving.
+            self.data['best_score'] = str(score)
+            self.data['date'] = date_now
 
             with open(self.filename_path, 'w') as file_object:
                 for key, value in self.data.items():
                     file_object.write(key + ': ' + value + '\n')
 
     def _check_data(self, score):
-        """Sprawdzenie aktualnych danych w pliku."""
+        """Checking the current data in the file."""
         try:
             with open(self.filename_path, 'r') as file_object:
                 contents = file_object.read()
         except FileNotFoundError:
             return True
 
-        # Przygotowanie danych do zapisu.
+        # Preparation of data for saving.
         words = contents.split()
         try:
-            self.data['Najlepszy wynik'] = words[2]
+            self.data['best_score'] = words[1]
         except IndexError:
             return True
 
-        # Konwersja punktacji na liczbę.
-        best_score = int(self.data['Najlepszy wynik'])
+        # Convert a score to a number.
+        best_score = int(self.data['best_score'])
         current_score = int(score)
 
-        # Sprawdzenie czy ustanowiono nowy rekord.
+        # Checking if a new record has been set.
         if current_score > best_score:
             return True
 

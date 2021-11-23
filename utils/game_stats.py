@@ -1,18 +1,18 @@
 class GameStats:
-    """Monitorowanie danych statystycznych w grze "Głodna piłka"."""
+    """A class designed to the monitoring of statistical data in the game."""
 
     def __init__(self, hb_game):
-        """Inicjalizacja danych statystycznych."""
+        """Necessary attributes initialization."""
         self.settings = hb_game.settings
 
-        # Uruchomienie gry "Głodna piłka" w stanie aktywnym.
+        # Start the game inactive state.
         self.game_active = False
 
-        # Punktacja.
+        # Points.
         self.score = 0
 
-        # Liczba aktualnie zjedzonych czarnych kropek.
+        # The number of black dots currently eaten.
         self.number_black_dots_eaten = 0
 
-        # Aktualny poziom gry.
+        # The current level of the game.
         self.level = 1
